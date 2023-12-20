@@ -1,0 +1,4 @@
+<div *ngIf="user">
+  <a [routerLink]="['detail',user.id]">{{user.name}}</a>
+  <button (click)="onDeleteUser($event)">delete user</button>
+</div>

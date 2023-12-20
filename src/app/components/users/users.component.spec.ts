@@ -1,9 +1,9 @@
-import {UserModel} from "../../models/user.model";
 import {UsersComponent} from "./users.component";
 import {of} from "rxjs";
+import {User} from "../../models/user.model";
 
 describe('User Component', () => {
-  let users: UserModel[];
+  let users: User[];
   let component: UsersComponent;
   let mockUserService: any;
 

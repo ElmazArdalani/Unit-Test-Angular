@@ -1,16 +1,21 @@
 import {Component, OnInit} from '@angular/core';
-import {UserModel} from "../../models/user.model";
+import {User} from "../../models/user.model";
 import {UserService} from "../../services/user.service";
+import {NgForOf} from "@angular/common";
+import {UserComponent} from "../user/user.component";
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [],
+  imports: [
+    NgForOf,
+    UserComponent
+  ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.scss'
 })
 export class UsersComponent implements OnInit {
-  users: UserModel[] = [];
+  users: User[] = [];
 
   constructor(private userService: UserService) {
   }
@@ -25,7 +30,7 @@ export class UsersComponent implements OnInit {
     })
   }
 
-  deleteUser(user: UserModel) {
+  deleteUser(user: User) {
     this.users = this.users.filter(item => item.id !== user.id);
     this.userService.deleteUser(user).subscribe();
   }
