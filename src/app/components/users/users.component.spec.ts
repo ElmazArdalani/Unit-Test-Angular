@@ -1,6 +1,8 @@
 import {UsersComponent} from "./users.component";
 import {of} from "rxjs";
 import {User} from "../../models/user.model";
+import {TestBed} from "@angular/core/testing";
+import {UserService} from "../../services/user.service";
 
 describe('User Component', () => {
   let users: User[];
@@ -30,7 +32,13 @@ describe('User Component', () => {
         phone: '123456'
       }]
     mockUserService = jasmine.createSpyObj(['getUsers', 'deleteUser'])
-    component = new UsersComponent(mockUserService)
+
+    TestBed.configureTestingModule({
+      providers: [UsersComponent, {
+        provide: UserService, useValue: mockUserService
+      }]
+    })
+    component = TestBed.inject(UsersComponent)
   });
   describe('delete', () => {
     beforeEach(() => {

@@ -1,11 +1,20 @@
 import {UserComponent} from "./user.component";
 import {User} from "../../models/user.model";
 import {first} from "rxjs";
+import {ComponentFixture, TestBed} from "@angular/core/testing";
 
 describe('UserComponent', () => {
-  let component: UserComponent;
+  let fixture: ComponentFixture<UserComponent>;
+  let comp: UserComponent;
   beforeEach(() => {
-    component = new UserComponent();
+    TestBed.configureTestingModule({
+    })
+    fixture = TestBed.createComponent(UserComponent)
+    comp = fixture.componentInstance;
+  })
+
+  it('should create user component using TestBed', () => {
+    expect(comp).toBeDefined();
   })
   it('should raise an event when the delete user is clicked', () => {
     const user: User = {
@@ -15,11 +24,11 @@ describe('UserComponent', () => {
       email: 'elnaz@gmail.com',
       phone: '123456'
     };
-    component.user = user;
-    component.delete.pipe(first()).subscribe((selectedPost) => {
+    comp.user = user;
+    comp.delete.pipe(first()).subscribe((selectedPost) => {
       expect(selectedPost).toEqual(user);
     });
-    component.onDeleteUser(new MouseEvent('click'));
+    comp.onDeleteUser(new MouseEvent('click'));
   })
 
 });
