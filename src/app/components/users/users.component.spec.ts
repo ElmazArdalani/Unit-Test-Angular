@@ -5,6 +5,7 @@ import {ComponentFixture, TestBed} from "@angular/core/testing";
 import {UserService} from "../../services/user.service";
 import {DebugElement} from "@angular/core";
 import {By} from "@angular/platform-browser";
+import {UserComponent} from "../user/user.component";
 
 describe('Users Component', () => {
   let users: User[];
@@ -49,9 +50,16 @@ describe('Users Component', () => {
   it('should create on user child element for each user', () => {
     mockUserService.getUsers.and.returnValue(of(users))
     fixture.detectChanges();
-    const debugElement=fixture.debugElement;
-    const usersElement=debugElement.queryAll(By.css('.users'))
+    const debugElement = fixture.debugElement;
+    const usersElement = debugElement.queryAll(By.css('.users'))
     expect(usersElement.length).toBe(users.length)
+  })
+
+  it('should create exact same number of user component with users', () => {
+    mockUserService.getUsers.and.returnValue(of(users))
+    fixture.detectChanges();
+    const userComponentDEs = fixture.debugElement.queryAll(By.directive(UserComponent))
+    expect(userComponentDEs.length).toEqual(users.length)
   })
 
 
