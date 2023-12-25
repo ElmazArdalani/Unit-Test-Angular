@@ -62,6 +62,16 @@ describe('Users Component', () => {
     expect(userComponentDEs.length).toEqual(users.length)
   })
 
+  it('should check whether exact user is sending to userComponent', () => {
+    mockUserService.getUsers.and.returnValue(of(users))
+    fixture.detectChanges();
+    const userComponentDEs = fixture.debugElement.queryAll(By.directive(UserComponent))
+    for (let i = 0; i < userComponentDEs.length; i++) {
+      let userComponentInstance = userComponentDEs[i].componentInstance as UserComponent;
+      expect(userComponentInstance.user.name).toEqual(users[i].name)
+    }
+  })
+
 
   it('should find <p> with fixture.debugElement.nativeElement', () => {
     const itemDe: DebugElement = fixture.debugElement;
