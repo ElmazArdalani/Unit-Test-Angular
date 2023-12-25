@@ -1,5 +1,5 @@
 <p>User List</p>
 
-<div *ngFor="let user of users">
+<div *ngFor="let user of users" class="users">
   <app-user [user]="user" (delete)="deleteUser(user)"></app-user>
 </div>
