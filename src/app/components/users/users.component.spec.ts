@@ -72,7 +72,6 @@ describe('Users Component', () => {
     }
   })
 
-
   it('should find <p> with fixture.debugElement.nativeElement', () => {
     const itemDe: DebugElement = fixture.debugElement;
     const itemEl: HTMLElement = itemDe.nativeElement;
