@@ -1,6 +1,7 @@
 import {HttpClient} from "@angular/common/http";
 import {UserService} from "./user.service";
 import {of} from "rxjs";
+import {TestBed} from "@angular/core/testing";
 
 describe('User Service', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
@@ -28,8 +29,14 @@ describe('User Service', () => {
     }]
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj('HttpClient', ['get'])
-    userService = new UserService(httpClientSpy)
+    let httpClientSpyObj = jasmine.createSpyObj('HttpClient', ['get'])
+    TestBed.configureTestingModule({
+      providers: [userService,
+        {provide: HttpClient, useValue: httpClientSpyObj}
+      ]
+    })
+    userService = TestBed.inject(UserService)
+    httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>
 
   })
 
