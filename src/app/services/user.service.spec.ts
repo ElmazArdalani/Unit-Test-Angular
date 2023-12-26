@@ -1,12 +1,13 @@
-import {HttpClient} from "@angular/common/http";
 import {UserService} from "./user.service";
-import {of} from "rxjs";
-import {TestBed} from "@angular/core/testing";
+import {HttpClient} from '@angular/common/http';
+import {TestBed} from '@angular/core/testing';
+import {of} from 'rxjs';
+import {User} from "../models/user.model";
 
 describe('User Service', () => {
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
   let userService: UserService;
-  let users = [{
+  let Users: User[] = [{
     id: 1,
     name: 'elnaz',
     username: 'e.test',
@@ -26,35 +27,35 @@ describe('User Service', () => {
       username: 's.test',
       email: 'sara@gmail.com',
       phone: '123456'
-    }]
-
+    }];
   beforeEach(() => {
-    let httpClientSpyObj = jasmine.createSpyObj('HttpClient', ['get'])
+    let httpClientSpyObj = jasmine.createSpyObj('HttpClient', ['get']);
     TestBed.configureTestingModule({
-      providers: [userService,
-        {provide: HttpClient, useValue: httpClientSpyObj}
-      ]
-    })
-    userService = TestBed.inject(UserService)
-    httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>
+      providers: [
+        UserService,
+        {
+          provide: HttpClient,
+          useValue: httpClientSpyObj,
+        },
+      ],
+    });
+    userService = TestBed.inject(UserService);
+    httpClientSpy = TestBed.inject(HttpClient) as jasmine.SpyObj<HttpClient>;
+  });
 
-  })
-
-  describe('getUsers', () => {
-    it('should return expect users when getUsers is called', (done: DoneFn) => {
-      httpClientSpy.get.and.returnValue(of(users))
+  describe('getUsers()', () => {
+    it('should return expected users when getUsers is called', (done: DoneFn) => {
+      httpClientSpy.get.and.returnValue(of(Users));
       userService.getUsers().subscribe({
         next: (users) => {
-          expect(users).toEqual(users)
+          expect(users).toEqual(Users);
           done();
         },
         error: () => {
-          done.fail
-        }
-      })
-      expect(httpClientSpy.get).toHaveBeenCalledTimes(1)
-    })
-  })
-
-
-})
+          done.fail;
+        },
+      });
+      expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
+    });
+  });
+});
