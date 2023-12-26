@@ -50,4 +50,16 @@ describe('user service (HttpClient Testing Module)', () => {
       expect(request.request.method).toBe('GET')
     })
   })
+
+
+  describe('getUser()', () => {
+    it('should return single user when getUser is called with userId', () => {
+      userService.getUser(1).subscribe()
+      const request = httpTestingController.expectOne(`https://jsonplaceholder.typicode.com/users/1`)
+      expect(request.request.method).toBe('GET')
+    })
+    afterEach(() => {
+      httpTestingController.verify()
+    })
+  })
 })

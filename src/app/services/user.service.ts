@@ -14,6 +14,10 @@ export class UserService {
     return this.http.get<User[]>(`https://jsonplaceholder.typicode.com/users`)
   }
 
+  getUser(id:number) {
+    return this.http.get<User>(`https://jsonplaceholder.typicode.com/users/${id}`)
+  }
+
   deleteUser(user: User) {
     return this.http.delete(`https://jsonplaceholder.typicode.com/users/${user.id}`)
   }
