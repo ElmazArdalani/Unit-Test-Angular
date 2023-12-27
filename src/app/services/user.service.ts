@@ -21,4 +21,11 @@ export class UserService {
   deleteUser(user: User) {
     return this.http.delete(`https://jsonplaceholder.typicode.com/users/${user.id}`)
   }
+
+  updateUser(user: User) {
+    return this.http.put(
+      `https://jsonplaceholder.typicode.com/user/${user.id}`,
+      user
+    );
+  }
 }
