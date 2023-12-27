@@ -112,5 +112,21 @@ describe('Users Component', () => {
         expect(user).not.toEqual(users[1])
       }
     })
+
+    it('should call delete method when user component button is clicked!', () => {
+      spyOn(comp, 'deleteUser')
+      mockUserService.getUsers.and.returnValue(of(users))
+
+      fixture.detectChanges();
+      let userElementDEs = fixture.debugElement.queryAll(By.directive(UserComponent))
+      for (let i = 0; i < userElementDEs.length; i++) {
+        userElementDEs[i].query(By.css('button')).triggerEventHandler('click', {
+          preventDefault: () => {
+          }
+        })
+        expect(comp.deleteUser).toHaveBeenCalledWith(users[i])
+      }
+
+    })
   })
 })
