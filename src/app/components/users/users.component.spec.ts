@@ -128,5 +128,23 @@ describe('Users Component', () => {
       }
 
     })
+
+
+    it('should call the delete method when the delete event is emitted in User Component', () => {
+      spyOn(comp, 'deleteUser');
+      mockUserService.getUsers.and.returnValue(of(users));
+      fixture.detectChanges();
+
+      let userComponentDEs = fixture.debugElement.queryAll(
+        By.directive(UserComponent)
+      );
+
+      for (let i = 0; i < userComponentDEs.length; i++) {
+        (userComponentDEs[i].componentInstance as UserComponent).delete.emit(
+          users[i]
+        );
+        expect(comp.deleteUser).toHaveBeenCalledWith(users[i]);
+      }
+    });
   })
 })
